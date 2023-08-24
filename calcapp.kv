@@ -16,7 +16,7 @@
             padding: dp(10)
             MDBoxLayout:
                 MDLabel:
-                    text: root.usd
+                    text: app.usd
                     halign: "center"
                 AnchorLayout:
                     anchor_x: 'center'
@@ -29,28 +29,28 @@
 
         MDBoxLayout:
             MDLabel:
-                text: "BTC"
+                text: app.btc
                 halign: "center"
             MDLabel:
                 id: btc_text
 
         MDBoxLayout:
             MDLabel:
-                text: "TRX"
+                text: app.trx
                 halign: "center"
             MDLabel:
                 id: trx_text
 
         MDBoxLayout:
             MDLabel:
-                text: "ETH"
+                text: app.eth
                 halign: "center"
             MDLabel:
                 id: eth_text
 
         MDBoxLayout:
             MDLabel:
-                text: "DOGE"
+                text: app.dog
                 halign: "center"
             MDLabel:
                 id: dog_text
@@ -64,13 +64,21 @@
                     anchor_x: 'center'
                     anchor_y: 'center'
                     MDRaisedButton:
-                        text: "Count"
+                        text: app.cnt
                         on_release: root.count_button()
                 AnchorLayout:
                     anchor_x: 'center'
                     anchor_y: 'center'
                     MDRectangleFlatButton:
-                        text: "Source"
+                        id: source_button
+                        text: app.src
+                        on_release: root.source_button()
+                AnchorLayout:
+                    anchor_x: 'center'
+                    anchor_y: 'center'
+                    MDRectangleFlatButton:
+                        text: app.info
+                        on_release: app.info_button()
 
 
 # --------------------- Tablet ----------------------
@@ -81,6 +89,7 @@
 
         MDCard:
             md_bg_color: 0, 0, 0, .05
+            radius: 0
             size_hint_x: .5
 
         MDBoxLayout:
@@ -93,7 +102,7 @@
                 padding: dp(10)
                 MDBoxLayout:
                     MDLabel:
-                        text: "USD"
+                        text: app.usd
                         halign: "center"
                     AnchorLayout:
                         anchor_x: 'center'
@@ -105,28 +114,28 @@
                             input_filter: 'int'
             MDBoxLayout:
                 MDLabel:
-                    text: "BTC"
+                    text: app.btc
                     halign: "center"
                 MDLabel:
                     id: btc_text_tablet
 
             MDBoxLayout:
                 MDLabel:
-                    text: "TRX"
+                    text: app.trx
                     halign: "center"
                 MDLabel:
                     id: trx_text_tablet
 
             MDBoxLayout:
                 MDLabel:
-                    text: "ETH"
+                    text: app.eth
                     halign: "center"
                 MDLabel:
                     id: eth_text_tablet
 
             MDBoxLayout:
                 MDLabel:
-                    text: "DOGE"
+                    text: app.dog
                     halign: "center"
                 MDLabel:
                     id: dog_text_tablet
@@ -146,17 +155,120 @@
                         anchor_x: 'center'
                         anchor_y: 'center'
                         MDRectangleFlatButton:
-                            text: 'Source'
+                            id: source_button
+                            text: app.src
+                            on_release: root.source_button()
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        MDRectangleFlatButton:
+                            text: app.info
+                            on_release: app.info_button()
         MDBoxLayout:
             size_hint_x: .5
             MDCard:
                 md_bg_color: 0, 0, 0, .05
+                radius: 0
 
 
 # --------------------- Desktop --------------------
 
 <DesktopView>
-    MDLabel:
-        text: "Hi dektop"
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDCard:
+            md_bg_color: 0, 0, 0, .05
+            radius: 0
+            size_hint_y: .3
+        MDBoxLayout:
+            orientation: 'horizontal'
 
+            MDCard:
+                md_bg_color: 0, 0, 0, .05
+                size_hint_x: .7
+                radius: 0
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                spacing: dp(10)
+                padding: dp(10)
+                MDCard:
+                    md_bg_color: 0, 0, 1, .1
+                    spacing: dp(10)
+                    padding: dp(10)
+                    MDBoxLayout:
+                        MDLabel:
+                            text: app.usd
+                            halign: "center"
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            MDTextField:
+                                mode: "rectangle"
+                                max_text_length: 10
+                                id: text_tablet
+                                input_filter: 'int'
+                MDBoxLayout:
+                    MDLabel:
+                        text: app.btc
+                        halign: "center"
+                    MDLabel:
+                        id: btc_text_tablet
+
+                MDBoxLayout:
+                    MDLabel:
+                        text: app.trx
+                        halign: "center"
+                    MDLabel:
+                        id: trx_text_tablet
+
+                MDBoxLayout:
+                    MDLabel:
+                        text: app.eth
+                        halign: "center"
+                    MDLabel:
+                        id: eth_text_tablet
+
+                MDBoxLayout:
+                    MDLabel:
+                        text: app.dog
+                        halign: "center"
+                    MDLabel:
+                        id: dog_text_tablet
+
+                MDCard:
+                    md_bg_color: 0, 1, 0, .1
+
+                    MDBoxLayout:
+                        spacing: dp(10)
+                        padding: dp(10)
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            MDRaisedButton:
+                                text: "Count"
+                                on_release: root.count_button()
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            MDRectangleFlatButton:
+                                id: source_button
+                                text: app.src
+                                on_release: root.source_button()
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            MDRectangleFlatButton:
+                                text: app.info
+                                on_release: app.info_button()
+            MDBoxLayout:
+                size_hint_x: .7
+                MDCard:
+                    md_bg_color: 0, 0, 0, .05
+                    radius: 0
+        MDBoxLayout:
+            size_hint_y: .3
+            MDCard:
+                md_bg_color: 0, 0, 0, .05
+                radius: 0
 ResponsiveView:
