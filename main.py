@@ -174,15 +174,62 @@ class MobileView(MDScreen):
 
 
 class TabletView(MDScreen):
+    market = 'binance-us'
     def source_button(self):
-        self.menu_list = def_menu_list()
-
+        self.menu_list = [{
+            "viewclass": "OneLineListItem",
+            "text": opt1,
+            "on_release": lambda x=0: self.test0()
+        },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt2,
+                "on_release": lambda x=1: self.test1()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt3,
+                "on_release": lambda x=2: self.test2()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt4,
+                "on_release": lambda x=3: self.test3()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt5,
+                "on_release": lambda x=4: self.test4()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt6,
+                "on_release": lambda x=5: self.test5()
+            }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
             items=self.menu_list,
-            width_mult=4
+            width_mult=3
         )
         self.menu.open()
+
+    def test0(self):
+        self.market = opt1
+
+    def test1(self):
+        self.market = opt2
+
+    def test2(self):
+        self.market = opt3
+
+    def test3(self):
+        self.market = opt4
+
+    def test4(self):
+        self.market = opt5
+
+    def test5(self):
+        self.market = opt6
 
     # Count button on tablet-like device
     def count_button(self):
@@ -196,7 +243,7 @@ class TabletView(MDScreen):
             elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val(f'{market_list()}', self.ids.text_tablet.text)
+                a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
                 self.ids.btc_text_tablet.text = str(a[0])
                 self.ids.trx_text_tablet.text = str(a[1])
                 self.ids.eth_text_tablet.text = str(a[2])
@@ -204,20 +251,63 @@ class TabletView(MDScreen):
 
 
 class DesktopView(MDScreen):
+    market = 'binance-us'
+
     def source_button(self):
-        self.menu_list = def_menu_list()
+        self.menu_list = [{
+            "viewclass": "OneLineListItem",
+            "text": opt1,
+            "on_release": lambda x=0: self.test0()
+        },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt2,
+                "on_release": lambda x=1: self.test1()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt3,
+                "on_release": lambda x=2: self.test2()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt4,
+                "on_release": lambda x=3: self.test3()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt5,
+                "on_release": lambda x=4: self.test4()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt6,
+                "on_release": lambda x=5: self.test5()
+            }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
             items=self.menu_list,
-            width_mult=5
+            width_mult=3
         )
         self.menu.open()
 
+    def test0(self):
+        self.market = opt1
+
     def test1(self):
-        print("test 1")
+        self.market = opt2
 
     def test2(self):
-        print("test 2")
+        self.market = opt3
+
+    def test3(self):
+        self.market = opt4
+
+    def test4(self):
+        self.market = opt5
+
+    def test5(self):
+        self.market = opt6
 
     # Count button on tablet-like device
     def count_button(self):
@@ -231,7 +321,7 @@ class DesktopView(MDScreen):
             elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val('binance-us', self.ids.text_tablet.text)
+                a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
                 self.ids.btc_text_tablet.text = str(a[0])
                 self.ids.trx_text_tablet.text = str(a[1])
                 self.ids.eth_text_tablet.text = str(a[2])

@@ -21,4 +21,4 @@ def crypto_list():
     print(show_me)
 
 
-crypto_list()
+# crypto_list()
