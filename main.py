@@ -27,6 +27,7 @@ def check_net():
         toast("Conn ection to internet dosent work")
         return False
 
+
 def def_menu_list():
     menu_list2 = [{
         "viewclass": "OneLineListItem",
@@ -60,6 +61,13 @@ def def_menu_list():
         }]
     return menu_list2
 
+
+def market_list(set_market):
+    market_options = [opt1, opt2, opt3, opt4, opt5, opt6]
+    a = market_options[set_market]
+    return a
+
+
 class CalcApp(MDApp):
     usd = StringProperty(v_usd)
     btc = StringProperty(v_btc)
@@ -88,21 +96,63 @@ class CalcApp(MDApp):
         return Builder.load_file('calcapp.kv')
 
 
-def market_list(set_market=0):
-    market_options = [opt1, opt2, opt3, opt4, opt5, opt6]
-    print(market_options[set_market])
-
-
 class MobileView(MDScreen):
+    market = 'binance-us'
     def source_button(self):
-        self.menu_list = def_menu_list()
+        self.menu_list = [{
+                "viewclass": "OneLineListItem",
+                "text": opt1,
+                "on_release": lambda x=0: self.test0()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt2,
+                "on_release": lambda x=1: self.test1()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt3,
+                "on_release": lambda x=2: self.test2()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt4,
+                "on_release": lambda x=3: self.test3()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt5,
+                "on_release": lambda x=4: self.test4()
+            },
+            {
+                "viewclass": "OneLineListItem",
+                "text": opt6,
+                "on_release": lambda x=5: self.test5()
+            }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
             items=self.menu_list,
             width_mult=3
-
         )
         self.menu.open()
+
+    def test0(self):
+        self.market = opt1
+
+    def test1(self):
+        self.market = opt2
+
+    def test2(self):
+        self.market = opt3
+
+    def test3(self):
+        self.market = opt4
+
+    def test4(self):
+        self.market = opt5
+
+    def test5(self):
+        self.market = opt6
 
     # Count button on mobile device
     def count_button(self):
@@ -116,7 +166,7 @@ class MobileView(MDScreen):
             elif self.ids.text_mobile.text == '' or self.ids.text_mobile.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val('binance-us', self.ids.text_mobile.text)
+                a = req_exchange_val(f'{self.market}', self.ids.text_mobile.text)
                 self.ids.btc_text.text = str(a[0])
                 self.ids.trx_text.text = str(a[1])
                 self.ids.eth_text.text = str(a[2])
@@ -131,15 +181,8 @@ class TabletView(MDScreen):
             caller=self.ids.source_button,
             items=self.menu_list,
             width_mult=4
-
         )
         self.menu.open()
-
-    def test1(self):
-        print("test 1")
-
-    def test2(self):
-        print("test 2")
 
     # Count button on tablet-like device
     def count_button(self):
@@ -153,7 +196,7 @@ class TabletView(MDScreen):
             elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val('binance-us', self.ids.text_tablet.text)
+                a = req_exchange_val(f'{market_list()}', self.ids.text_tablet.text)
                 self.ids.btc_text_tablet.text = str(a[0])
                 self.ids.trx_text_tablet.text = str(a[1])
                 self.ids.eth_text_tablet.text = str(a[2])
@@ -167,7 +210,6 @@ class DesktopView(MDScreen):
             caller=self.ids.source_button,
             items=self.menu_list,
             width_mult=5
-
         )
         self.menu.open()
 

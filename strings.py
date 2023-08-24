@@ -8,8 +8,8 @@ v_cnt = "Count"
 v_info = "About"
 
 opt1 = 'kraken'
-opt2 = 'okx'
+opt2 = 'ftx'
 opt3 = 'gateio'
 opt4 = 'bitfinex'
 opt5 = 'binance-us'
-opt6 = 'coinbase'
+opt6 = 'bittrex'
