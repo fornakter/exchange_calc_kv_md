@@ -13,3 +13,4 @@ opt3 = 'gateio'
 opt4 = 'bitfinex'
 opt5 = 'binance-us'
 opt6 = 'bittrex'
+

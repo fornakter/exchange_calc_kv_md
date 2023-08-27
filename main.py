@@ -9,6 +9,7 @@ from kivymd.toast import toast
 from kivy.properties import StringProperty
 import requests
 from kivymd.uix.menu import MDDropdownMenu
+
 # Import def from exchange.py
 from exchange import req_exchange_val
 # Import strings from strings.py file
@@ -22,44 +23,9 @@ def check_net():
         requests.head("http://www.google.com/", timeout=timeout)
         return True
     except requests.ConnectionError:
-
         # Rise error
-        toast("Conn ection to internet dosent work")
+        toast("Connection to internet dosent work")
         return False
-
-
-def def_menu_list():
-    menu_list2 = [{
-        "viewclass": "OneLineListItem",
-        "text": opt1,
-        "on_release": lambda x=0: market_list(x)
-    },
-        {
-            "viewclass": "OneLineListItem",
-            "text": opt2,
-            "on_release": lambda x=1: market_list(x)
-        },
-        {
-            "viewclass": "OneLineListItem",
-            "text": opt3,
-            "on_release": lambda x=2: market_list(x)
-        },
-        {
-            "viewclass": "OneLineListItem",
-            "text": opt4,
-            "on_release": lambda x=3: market_list(x)
-        },
-        {
-            "viewclass": "OneLineListItem",
-            "text": opt5,
-            "on_release": lambda x=4: market_list(x)
-        },
-        {
-            "viewclass": "OneLineListItem",
-            "text": opt6,
-            "on_release": lambda x=5: market_list(x)
-        }]
-    return menu_list2
 
 
 def market_list(set_market):
@@ -82,7 +48,10 @@ class CalcApp(MDApp):
     # Info / Dialog window
     def info_button(self):
         if not self.dialog:
-            self.dialog = MDDialog(text="Siema",
+            self.dialog = MDDialog(title="CryptoCalc",
+                                   text="Questions and feedback: fornakter@gmail.com\n"
+                                        "Version: 2.0\n"
+                                        "Created by: Adam Fatyga",
                                    buttons=[
                                        MDRectangleFlatButton(text="OK", on_release=self.close_dialog)])
         self.dialog.open()
@@ -97,37 +66,37 @@ class CalcApp(MDApp):
 
 
 class MobileView(MDScreen):
-    market = 'binance-us'
+    market = opt1
     def source_button(self):
         self.menu_list = [{
                 "viewclass": "OneLineListItem",
                 "text": opt1,
-                "on_release": lambda x=0: self.test0()
+                "on_release": lambda x=0: self.market_list(x),
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt2,
-                "on_release": lambda x=1: self.test1()
+                "on_release": lambda x=1: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt3,
-                "on_release": lambda x=2: self.test2()
+                "on_release": lambda x=2: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt4,
-                "on_release": lambda x=3: self.test3()
+                "on_release": lambda x=3: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt5,
-                "on_release": lambda x=4: self.test4()
+                "on_release": lambda x=4: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt6,
-                "on_release": lambda x=5: self.test5()
+                "on_release": lambda x=5: self.market_list(x)
             }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
@@ -136,23 +105,12 @@ class MobileView(MDScreen):
         )
         self.menu.open()
 
-    def test0(self):
-        self.market = opt1
-
-    def test1(self):
-        self.market = opt2
-
-    def test2(self):
-        self.market = opt3
-
-    def test3(self):
-        self.market = opt4
-
-    def test4(self):
-        self.market = opt5
-
-    def test5(self):
-        self.market = opt6
+    # Select market
+    def market_list(self, set_market):
+        market_options = [opt1, opt2, opt3, opt4, opt5, opt6]
+        self.market = market_options[set_market]
+        self.menu.dismiss()
+        return self.market
 
     # Count button on mobile device
     def count_button(self):
@@ -174,37 +132,37 @@ class MobileView(MDScreen):
 
 
 class TabletView(MDScreen):
-    market = 'binance-us'
+    market = opt1
     def source_button(self):
         self.menu_list = [{
             "viewclass": "OneLineListItem",
             "text": opt1,
-            "on_release": lambda x=0: self.test0()
+            "on_release": lambda x=0: self.market_list(x)
         },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt2,
-                "on_release": lambda x=1: self.test1()
+                "on_release": lambda x=1: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt3,
-                "on_release": lambda x=2: self.test2()
+                "on_release": lambda x=2: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt4,
-                "on_release": lambda x=3: self.test3()
+                "on_release": lambda x=3: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt5,
-                "on_release": lambda x=4: self.test4()
+                "on_release": lambda x=4: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt6,
-                "on_release": lambda x=5: self.test5()
+                "on_release": lambda x=5: self.market_list(x)
             }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
@@ -213,23 +171,12 @@ class TabletView(MDScreen):
         )
         self.menu.open()
 
-    def test0(self):
-        self.market = opt1
-
-    def test1(self):
-        self.market = opt2
-
-    def test2(self):
-        self.market = opt3
-
-    def test3(self):
-        self.market = opt4
-
-    def test4(self):
-        self.market = opt5
-
-    def test5(self):
-        self.market = opt6
+    # Select market
+    def market_list(self, set_market):
+        market_options = [opt1, opt2, opt3, opt4, opt5, opt6]
+        self.market = market_options[set_market]
+        self.menu.dismiss()
+        return self.market
 
     # Count button on tablet-like device
     def count_button(self):
@@ -251,38 +198,37 @@ class TabletView(MDScreen):
 
 
 class DesktopView(MDScreen):
-    market = 'binance-us'
-
+    market = opt1
     def source_button(self):
         self.menu_list = [{
             "viewclass": "OneLineListItem",
             "text": opt1,
-            "on_release": lambda x=0: self.test0()
+            "on_release": lambda x=0: self.market_list(x)
         },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt2,
-                "on_release": lambda x=1: self.test1()
+                "on_release": lambda x=1: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt3,
-                "on_release": lambda x=2: self.test2()
+                "on_release": lambda x=2: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt4,
-                "on_release": lambda x=3: self.test3()
+                "on_release": lambda x=3: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt5,
-                "on_release": lambda x=4: self.test4()
+                "on_release": lambda x=4: self.market_list(x)
             },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt6,
-                "on_release": lambda x=5: self.test5()
+                "on_release": lambda x=5: self.market_list(x)
             }]
         self.menu = MDDropdownMenu(
             caller=self.ids.source_button,
@@ -291,23 +237,12 @@ class DesktopView(MDScreen):
         )
         self.menu.open()
 
-    def test0(self):
-        self.market = opt1
-
-    def test1(self):
-        self.market = opt2
-
-    def test2(self):
-        self.market = opt3
-
-    def test3(self):
-        self.market = opt4
-
-    def test4(self):
-        self.market = opt5
-
-    def test5(self):
-        self.market = opt6
+    # Select market
+    def market_list(self, set_market):
+        market_options = [opt1, opt2, opt3, opt4, opt5, opt6]
+        self.market = market_options[set_market]
+        self.menu.dismiss()
+        return self.market
 
     # Count button on tablet-like device
     def count_button(self):
