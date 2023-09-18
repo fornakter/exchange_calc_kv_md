@@ -4,7 +4,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDRectangleFlatButton
 from kivy.lang import Builder
-from kivymd.theming import ThemeManager
+# from kivymd.theming import ThemeManager
 from kivymd.toast import toast
 from kivy.properties import StringProperty
 import requests
@@ -24,7 +24,7 @@ def check_net():
         return True
     except requests.ConnectionError:
         # Rise error
-        toast("Connection to internet dosent work")
+        toast("Connection to internet doesn't work")
         return False
 
 
@@ -121,7 +121,7 @@ class MobileView(MDScreen):
             # Check len of text input
             if len(self.ids.text_mobile.text) > 10:
                 toast("Enter a smaller number")
-            elif self.ids.text_mobile.text == '' or self.ids.text_mobile.text == '0':
+            elif self.ids.text_mobile.text == '' or self.ids.text_mobile.text <= '0':
                 toast("Number must be greater then 0")
             else:
                 a = req_exchange_val(f'{self.market}', self.ids.text_mobile.text)
@@ -187,7 +187,7 @@ class TabletView(MDScreen):
             # Check len of text input
             if len(self.ids.text_tablet.text) > 10:
                 toast("Enter a smaller number")
-            elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
+            elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text <= '0':
                 toast("Number must be greater then 0")
             else:
                 a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
@@ -244,7 +244,7 @@ class DesktopView(MDScreen):
         self.menu.dismiss()
         return self.market
 
-    # Count button on tablet-like device
+    # Count button on desktop device
     def count_button(self):
 
         # Check internet connection
@@ -253,7 +253,7 @@ class DesktopView(MDScreen):
             # Check len of text input
             if len(self.ids.text_tablet.text) > 10:
                 toast("Enter a smaller number")
-            elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
+            elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text <= '0':
                 toast("Number must be greater then 0")
             else:
                 a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
