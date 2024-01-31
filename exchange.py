@@ -1,24 +1,50 @@
 import requests
+from requests import Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
+import pprint
+from strings import PAIR, FIAT, url
 
-pair = ('btcusd', 'trxusd', 'ethusd', 'dogeusd')
+
+headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': 'e4402d27-462c-4cb0-8197-91263de378e1',
+}
+
+session = Session()
+session.headers.update(headers)
 
 
-def req_exchange_val(market, val):
+def req_exchange_val(val):
     list_of_results = []
-    for i in pair:
-        c = requests.get(f'https://api.cryptowat.ch/markets/{market}/{i}/price')
-        crypto_prices = c.json()
-        wynik = float(val) / crypto_prices['result']['price']
-        list_of_results.append(round(wynik, 8))
+    data = {}
+    for i in PAIR:
+        parameters = {
+            'slug': FIAT[0],
+            'convert': i
+        }
+        try:
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print(e)
+        result = float(val) / data['data']['20317']['quote'][i]['price']
+        list_of_results.append(round(result, 8))
     return list_of_results
 
 
-def crypto_list():
-    c = requests.get(f'https://api.cryptowat.ch/markets')
-    crypto_prices2 = c.json()
-    show_me = json.dumps(crypto_prices2)
-    print(show_me)
+def check_code_crypto():
+    for i in PAIR:
+        parameters = {
+            'id': FIAT[1],
+            'convert': i
+        }
+        try:
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+            pprint.pprint(data)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print(e)
 
 
-# crypto_list()
+check_code_crypto()

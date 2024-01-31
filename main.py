@@ -1,3 +1,4 @@
+import clipboard
 from kivymd.app import MDApp
 from kivymd.uix.responsivelayout import MDResponsiveLayout
 from kivymd.uix.screen import MDScreen
@@ -18,9 +19,8 @@ from strings import *
 
 # Check internet connection and rise errors
 def check_net():
-    timeout = 1
     try:
-        requests.head("http://www.google.com/", timeout=timeout)
+        requests.head("http://www.google.com/")
         return True
     except requests.ConnectionError:
         # Rise error
@@ -45,18 +45,24 @@ class CalcApp(MDApp):
     info = StringProperty(v_info)
     dialog = None
 
+    def copy_email_button(self, obj):
+        clipboard.copy("fornakter@gmail.com")
+        toast("Copied")
+
     # Info / Dialog window
     def info_button(self):
         if not self.dialog:
             self.dialog = MDDialog(title="CryptoCalc",
                                    text="Questions and feedback: fornakter@gmail.com\n"
-                                        "Version: 2.0\n"
+                                        "Version: 2.1\n"
                                         "Created by: Adam Fatyga",
                                    buttons=[
-                                       MDRectangleFlatButton(text="OK", on_release=self.close_dialog)])
+                                        MDRectangleFlatButton(text="OK", on_release=self.close_dialog),
+                                        MDRectangleFlatButton(text="Copy email", on_release=self.copy_email_button),
+                                        ])
         self.dialog.open()
 
-    # Close info/ dialog window
+        # Close info/ dialog window
     def close_dialog(self, obj):
         self.dialog.dismiss(force=True)
 
@@ -67,12 +73,13 @@ class CalcApp(MDApp):
 
 class MobileView(MDScreen):
     market = opt1
+
     def source_button(self):
         self.menu_list = [{
-                "viewclass": "OneLineListItem",
-                "text": opt1,
-                "on_release": lambda x=0: self.market_list(x),
-            },
+            "viewclass": "OneLineListItem",
+            "text": opt1,
+            "on_release": lambda x=0: self.market_list(x),
+        },
             {
                 "viewclass": "OneLineListItem",
                 "text": opt2,
@@ -124,7 +131,7 @@ class MobileView(MDScreen):
             elif self.ids.text_mobile.text == '' or self.ids.text_mobile.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val(f'{self.market}', self.ids.text_mobile.text)
+                a = req_exchange_val(self.ids.text_mobile.text)
                 self.ids.btc_text.text = str(a[0])
                 self.ids.trx_text.text = str(a[1])
                 self.ids.eth_text.text = str(a[2])
@@ -133,6 +140,7 @@ class MobileView(MDScreen):
 
 class TabletView(MDScreen):
     market = opt1
+
     def source_button(self):
         self.menu_list = [{
             "viewclass": "OneLineListItem",
@@ -190,7 +198,7 @@ class TabletView(MDScreen):
             elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
+                a = req_exchange_val(self.ids.text_tablet.text)
                 self.ids.btc_text_tablet.text = str(a[0])
                 self.ids.trx_text_tablet.text = str(a[1])
                 self.ids.eth_text_tablet.text = str(a[2])
@@ -199,6 +207,7 @@ class TabletView(MDScreen):
 
 class DesktopView(MDScreen):
     market = opt1
+
     def source_button(self):
         self.menu_list = [{
             "viewclass": "OneLineListItem",
@@ -256,7 +265,7 @@ class DesktopView(MDScreen):
             elif self.ids.text_tablet.text == '' or self.ids.text_tablet.text == '0':
                 toast("Number must be greater then 0")
             else:
-                a = req_exchange_val(f'{self.market}', self.ids.text_tablet.text)
+                a = req_exchange_val(self.ids.text_tablet.text)
                 self.ids.btc_text_tablet.text = str(a[0])
                 self.ids.trx_text_tablet.text = str(a[1])
                 self.ids.eth_text_tablet.text = str(a[2])

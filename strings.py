@@ -7,6 +7,10 @@ v_src = "Source"
 v_cnt = "Count"
 v_info = "About"
 
+PAIR = ('BTC', 'TRX', 'ETH', 'DOGE')
+FIAT = (20317, 2805)
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
+
 opt1 = 'kraken'
 opt2 = 'ftx'
 opt3 = 'gateio'
