@@ -20,7 +20,7 @@ def req_exchange_val(val):
     data = {}
     for i in PAIR:
         parameters = {
-            'slug': FIAT[0],
+            'id': FIAT[0],
             'convert': i
         }
         try:
@@ -28,23 +28,12 @@ def req_exchange_val(val):
             data = json.loads(response.text)
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print(e)
-        result = float(val) / data['data']['20317']['quote'][i]['price']
+        try:
+            result = float(val) / data['data'][f'{FIAT[0]}']['quote'][i]['price']
+        except Exception as e:
+            print(e)
         list_of_results.append(round(result, 8))
     return list_of_results
 
 
-def check_code_crypto():
-    for i in PAIR:
-        parameters = {
-            'id': FIAT[1],
-            'convert': i
-        }
-        try:
-            response = session.get(url, params=parameters)
-            data = json.loads(response.text)
-            pprint.pprint(data)
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print(e)
-
-
-check_code_crypto()
+# check_code_crypto(1)
